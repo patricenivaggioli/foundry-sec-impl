@@ -5,6 +5,10 @@
 
 A Python implementation of the [Foundry Security Spec](spec.md) — a multi-agent AI security evaluation pipeline. This repo contains both the original spec (from Cisco) and a working implementation in [`impl/`](impl/).
 
+![Pipeline dashboard showing 19 findings across 8 agent roles](docs/images/inspector-dashboard.png)
+
+![Agent workflow graph showing orchestrator → indexer → cartographer → detector → triager → validator → reporter](docs/images/inspector-findings.png)
+
 ## Architecture
 
 The pipeline chains eight agents to evaluate a target codebase for security vulnerabilities:
