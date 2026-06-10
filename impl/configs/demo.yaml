@@ -1,0 +1,28 @@
+name: demo
+
+substrate:
+  dsn: ${env:FOUNDRY_DSN}
+
+llm:
+  provider: mistral
+  strong_model: mistral-large-latest
+  bulk_model: mistral-small-latest
+  region: eu
+
+target:
+  path: ./fixtures/vulnerable_app
+  revision: demo-r1
+
+budget:
+  tokens: 200000
+  wallclock_seconds: 600
+
+concurrency:
+  detector: 2
+  triager: 2
+
+goals:
+  attack_goals:
+    - data_exfiltration
+    - rce
+    - auth_bypass

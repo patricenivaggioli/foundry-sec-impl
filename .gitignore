@@ -1,0 +1,200 @@
+# OS files
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Editor / IDE
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.example.json
+.idea/
+*.iml
+*.sublime-workspace
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+secrets.*
+*.secret
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+*.orig
+*.rej
+.cache/
+.cache-loader/
+
+# Dependencies
+node_modules/
+vendor/
+bower_components/
+
+# Build / distribution
+dist/
+build/
+out/
+target/
+release/
+debug/
+coverage/
+.nyc_output/
+
+# Node / JavaScript / TypeScript
+.next/
+.nuxt/
+.svelte-kit/
+.angular/
+.parcel-cache/
+.turbo/
+.vercel/
+.netlify/
+*.tsbuildinfo
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+ENV/
+pip-wheel-metadata/
+*.egg-info/
+.eggs/
+
+# Java / JVM
+.gradle/
+.mvn/
+*.class
+*.jar
+*.war
+*.ear
+hs_err_pid*
+replay_pid*
+
+# Go
+bin/
+pkg/
+*.test
+*.out
+go.work
+
+# Rust
+target/
+Cargo.lock
+# Keep Cargo.lock for applications; ignore for libraries only if appropriate.
+
+# .NET
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+*.rsuser
+*.nupkg
+TestResults/
+
+# Ruby
+.bundle/
+vendor/bundle/
+*.gem
+.ruby-version
+.ruby-gemset
+
+# PHP / Composer
+composer.phar
+vendor/
+
+# Swift / Xcode
+.build/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+
+# C / C++
+*.o
+*.obj
+*.so
+*.dylib
+*.dll
+*.exe
+*.a
+*.lib
+*.out
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraform.lock.hcl
+
+# Docker
+.docker/
+docker-compose.override.yml
+
+# Kubernetes / Helm
+*.kubeconfig
+charts/*.tgz
+
+# Databases
+*.sqlite
+*.sqlite3
+*.db
+
+# Archives
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+
+# Reports / generated docs
+site/
+docs/_build/
+public/
+storybook-static/
+
+# Misc
+*.pid
+*.seed
+*.pid.lock

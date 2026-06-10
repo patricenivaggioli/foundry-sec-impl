@@ -1,0 +1,654 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "FoundrySec",
+          "version": "0.1.0",
+          "informationUri": "https://github.com/CiscoDevNet/foundry-security-spec",
+          "rules": [
+            {
+              "id": "FOUNDRY-SQLI-001",
+              "name": "FOUNDRY-SQLI-001",
+              "shortDescription": {
+                "text": "CWE-89"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
+            {
+              "id": "FOUNDRY-CMDI-001",
+              "name": "FOUNDRY-CMDI-001",
+              "shortDescription": {
+                "text": "CWE-78"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
+            {
+              "id": "FOUNDRY-DESER-001",
+              "name": "FOUNDRY-DESER-001",
+              "shortDescription": {
+                "text": "CWE-502"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
+            {
+              "id": "FOUNDRY-CODE-001",
+              "name": "FOUNDRY-CODE-001",
+              "shortDescription": {
+                "text": "CWE-94"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "FOUNDRY-SQLI-001",
+          "level": "error",
+          "message": {
+            "text": "The function directly passes unsanitized user input from `request.args.get('q', '')` to `search_users()`, which likely constructs SQL queries without proper parameterization, leading to SQL injection."
+          },
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "name": "myapp.web.search"
+                }
+              ],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "myapp/web.py"
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "foundry/v1": "demo-r1|myapp/web.py|myapp.web.search|CWE-89"
+          },
+          "properties": {
+            "exploited": false,
+            "verdict": "true-positive",
+            "vulnClass": "CWE-89",
+            "citations": [
+              {
+                "path": "myapp/web.py",
+                "symbol": "myapp.web.search"
+              }
+            ]
+          }
+        },
+        {
+          "ruleId": "FOUNDRY-CMDI-001",
+          "level": "error",
+          "message": {
+            "text": "The function directly interpolates user-controlled input from request.args.get('host') into a shell command without any sanitization or validation, making it vulnerable to OS command injection (CWE-78)."
+          },
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "name": "myapp.web.ping"
+                }
+              ],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "myapp/web.py"
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "foundry/v1": "demo-r1|myapp/web.py|myapp.web.ping|CWE-78"
+          },
+          "properties": {
+            "exploited": false,
+            "verdict": "true-positive",
+            "vulnClass": "CWE-78",
+            "citations": [
+              {
+                "path": "myapp/web.py",
+                "symbol": "myapp.web.ping"
+              }
+            ]
+          }
+        },
+        {
+          "ruleId": "FOUNDRY-DESER-001",
+          "level": "error",
+          "message": {
+            "text": "The function `session_load` deserializes untrusted data from `request.data` without apparent validation or sanitization. If `load_session` uses an unsafe deserialization method (e.g., `pickle` or `yaml`), this is a clear CWE-502 vulnerability."
+          },
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "name": "myapp.web.session_load"
+                }
+              ],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "myapp/web.py"
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "foundry/v1": "demo-r1|myapp/web.py|myapp.web.session_load|CWE-502"
+          },
+          "properties": {
+            "exploited": true,
+            "verdict": "true-positive",
+            "vulnClass": "CWE-502",
+            "citations": [
+              {
+                "path": "myapp/web.py",
+                "symbol": "myapp.web.session_load"
+              }
+            ]
+          }
+        },
+        {
+          "ruleId": "FOUNDRY-SQLI-001",
+          "level": "error",
+          "message": {
+            "text": "The function directly uses untrusted input from request.args.get('expr') in an SQL query without sanitization or parameterization, confirming SQL injection vulnerability."
+          },
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "name": "myapp.web.calc"
+                }
+              ],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "myapp/web.py"
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "foundry/v1": "demo-r1|myapp/web.py|myapp.web.calc|CWE-89"
+          },
+          "properties": {
+            "exploited": false,
+            "verdict": "true-positive",
+            "vulnClass": "CWE-89",
+            "citations": [
+              {
+                "path": "myapp/web.py",
+                "symbol": "myapp.web.calc"
+              }
+            ]
+          }
+        },
+        {
+          "ruleId": "FOUNDRY-CODE-001",
+          "level": "error",
+          "message": {
+            "text": "The function directly passes unsanitized user input from request.args.get('expr') to run_calc, which likely evaluates the input as code. This is a clear code injection vulnerability (CWE-94)."
+          },
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "name": "myapp.web.calc"
+                }
+              ],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "myapp/web.py"
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "foundry/v1": "demo-r1|myapp/web.py|myapp.web.calc|CWE-94"
+          },
+          "properties": {
+            "exploited": false,
+            "verdict": "true-positive",
+            "vulnClass": "CWE-94",
+            "citations": [
+              {
+                "path": "myapp/web.py",
+                "symbol": "myapp.web.calc"
+              }
+            ]
+          }
+        },
+        {
+          "ruleId": "FOUNDRY-SQLI-001",
+          "level": "error",
+          "message": {
+            "text": "The function directly concatenates the 'query' parameter into an SQL string without any sanitization or parameterization, making it vulnerable to SQL injection (CWE-89)."
+          },
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "name": "myapp.__init__.search_users"
+                }
+              ],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "myapp/__init__.py"
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "foundry/v1": "demo-r1|myapp/__init__.py|myapp.__init__.search_users|CWE-89"
+          },
+          "properties": {
+            "exploited": false,
+            "verdict": "true-positive",
+            "vulnClass": "CWE-89",
+            "citations": [
+              {
+                "path": "myapp/__init__.py",
+                "symbol": "myapp.__init__.search_users"
+              }
+            ]
+          }
+        },
+        {
+          "ruleId": "FOUNDRY-CMDI-001",
+          "level": "error",
+          "message": {
+            "text": "The function `search_users` directly concatenates the `query` parameter into an SQL string, making it vulnerable to SQL injection (CWE-78). This is a clear violation of secure coding practices for database queries."
+          },
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "name": "myapp.__init__.search_users"
+                }
+              ],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "myapp/__init__.py"
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "foundry/v1": "demo-r1|myapp/__init__.py|myapp.__init__.search_users|CWE-78"
+          },
+          "properties": {
+            "exploited": false,
+            "verdict": "true-positive",
+            "vulnClass": "CWE-78",
+            "citations": [
+              {
+                "path": "myapp/__init__.py",
+                "symbol": "myapp.__init__.search_users"
+              }
+            ]
+          }
+        },
+        {
+          "ruleId": "FOUNDRY-CODE-001",
+          "level": "error",
+          "message": {
+            "text": "The function directly concatenates user-controlled input into an SQL query string, enabling SQL injection."
+          },
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "name": "myapp.__init__.search_users"
+                }
+              ],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "myapp/__init__.py"
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "foundry/v1": "demo-r1|myapp/__init__.py|myapp.__init__.search_users|CWE-94"
+          },
+          "properties": {
+            "exploited": false,
+            "verdict": "true-positive",
+            "vulnClass": "CWE-94",
+            "citations": [
+              {
+                "path": "myapp/__init__.py",
+                "symbol": "myapp.__init__.search_users"
+              }
+            ]
+          }
+        },
+        {
+          "ruleId": "FOUNDRY-CMDI-001",
+          "level": "error",
+          "message": {
+            "text": "The 'host' parameter is directly concatenated into a shell command without any sanitization or input validation, enabling OS command injection (CWE-78)."
+          },
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "name": "myapp.__init__.ping_host"
+                }
+              ],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "myapp/__init__.py"
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "foundry/v1": "demo-r1|myapp/__init__.py|myapp.__init__.ping_host|CWE-78"
+          },
+          "properties": {
+            "exploited": false,
+            "verdict": "true-positive",
+            "vulnClass": "CWE-78",
+            "citations": [
+              {
+                "path": "myapp/__init__.py",
+                "symbol": "myapp.__init__.ping_host"
+              }
+            ]
+          }
+        },
+        {
+          "ruleId": "FOUNDRY-SQLI-001",
+          "level": "error",
+          "message": {
+            "text": "The function directly concatenates untrusted input (`host`) into a shell command, enabling command injection (CWE-78). While the detector rule targets SQL injection, the pattern matches injection via string concatenation of untrusted input."
+          },
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "name": "myapp.__init__.ping_host"
+                }
+              ],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "myapp/__init__.py"
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "foundry/v1": "demo-r1|myapp/__init__.py|myapp.__init__.ping_host|CWE-89"
+          },
+          "properties": {
+            "exploited": true,
+            "verdict": "true-positive",
+            "vulnClass": "CWE-89",
+            "citations": [
+              {
+                "path": "myapp/__init__.py",
+                "symbol": "myapp.__init__.ping_host"
+              }
+            ]
+          }
+        },
+        {
+          "ruleId": "FOUNDRY-CODE-001",
+          "level": "error",
+          "message": {
+            "text": "The function `ping_host` directly concatenates the `host` parameter into a shell command without any sanitization or validation, enabling arbitrary command injection (CWE-94)."
+          },
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "name": "myapp.__init__.ping_host"
+                }
+              ],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "myapp/__init__.py"
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "foundry/v1": "demo-r1|myapp/__init__.py|myapp.__init__.ping_host|CWE-94"
+          },
+          "properties": {
+            "exploited": false,
+            "verdict": "true-positive",
+            "vulnClass": "CWE-94",
+            "citations": [
+              {
+                "path": "myapp/__init__.py",
+                "symbol": "myapp.__init__.ping_host"
+              }
+            ]
+          }
+        },
+        {
+          "ruleId": "FOUNDRY-DESER-001",
+          "level": "error",
+          "message": {
+            "text": "The function 'load_session' directly uses 'pickle.loads' on the untrusted input 'blob', which is a well-documented insecure deserialization vulnerability (CWE-502)."
+          },
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "name": "myapp.__init__.load_session"
+                }
+              ],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "myapp/__init__.py"
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "foundry/v1": "demo-r1|myapp/__init__.py|myapp.__init__.load_session|CWE-502"
+          },
+          "properties": {
+            "exploited": false,
+            "verdict": "true-positive",
+            "vulnClass": "CWE-502",
+            "citations": [
+              {
+                "path": "myapp/__init__.py",
+                "symbol": "myapp.__init__.load_session"
+              }
+            ]
+          }
+        },
+        {
+          "ruleId": "FOUNDRY-CODE-001",
+          "level": "error",
+          "message": {
+            "text": "The function `load_session` directly deserializes attacker-controlled bytes using `pickle.loads`, which is a well-documented vector for arbitrary code execution (CWE-94). No sanitization or validation is performed on the input."
+          },
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "name": "myapp.__init__.load_session"
+                }
+              ],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "myapp/__init__.py"
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "foundry/v1": "demo-r1|myapp/__init__.py|myapp.__init__.load_session|CWE-94"
+          },
+          "properties": {
+            "exploited": true,
+            "verdict": "true-positive",
+            "vulnClass": "CWE-94",
+            "citations": [
+              {
+                "path": "myapp/__init__.py",
+                "symbol": "myapp.__init__.load_session"
+              }
+            ]
+          }
+        },
+        {
+          "ruleId": "FOUNDRY-SQLI-001",
+          "level": "error",
+          "message": {
+            "text": "The function `run_calc` directly uses `eval` on the untrusted input `expr`, which is a severe code injection vulnerability. While the immediate risk is arbitrary code execution, if the input is derived from user-controlled sources (e.g., HTTP parameters) and later used in SQL queries, it could also lead to SQL injection (CWE-89)."
+          },
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "name": "myapp.__init__.run_calc"
+                }
+              ],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "myapp/__init__.py"
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "foundry/v1": "demo-r1|myapp/__init__.py|myapp.__init__.run_calc|CWE-89"
+          },
+          "properties": {
+            "exploited": false,
+            "verdict": "true-positive",
+            "vulnClass": "CWE-89",
+            "citations": [
+              {
+                "path": "myapp/__init__.py",
+                "symbol": "myapp.__init__.run_calc"
+              }
+            ]
+          }
+        },
+        {
+          "ruleId": "FOUNDRY-DESER-001",
+          "level": "error",
+          "message": {
+            "text": "The function `run_calc` directly uses `eval()` on the untrusted input `expr`, which is a clear example of insecure deserialization (CWE-502) and code injection vulnerability. No sanitization or validation is performed on the input."
+          },
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "name": "myapp.__init__.run_calc"
+                }
+              ],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "myapp/__init__.py"
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "foundry/v1": "demo-r1|myapp/__init__.py|myapp.__init__.run_calc|CWE-502"
+          },
+          "properties": {
+            "exploited": true,
+            "verdict": "true-positive",
+            "vulnClass": "CWE-502",
+            "citations": [
+              {
+                "path": "myapp/__init__.py",
+                "symbol": "myapp.__init__.run_calc"
+              }
+            ]
+          }
+        },
+        {
+          "ruleId": "FOUNDRY-CODE-001",
+          "level": "error",
+          "message": {
+            "text": "The function `run_calc` directly uses `eval()` on the input string `expr`, which is a classic code injection vulnerability (CWE-94) if the input is untrusted. No input sanitization or validation is performed."
+          },
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "name": "myapp.__init__.run_calc"
+                }
+              ],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "myapp/__init__.py"
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "foundry/v1": "demo-r1|myapp/__init__.py|myapp.__init__.run_calc|CWE-94"
+          },
+          "properties": {
+            "exploited": false,
+            "verdict": "true-positive",
+            "vulnClass": "CWE-94",
+            "citations": [
+              {
+                "path": "myapp/__init__.py",
+                "symbol": "myapp.__init__.run_calc"
+              }
+            ]
+          }
+        },
+        {
+          "ruleId": "FOUNDRY-CMDI-001",
+          "level": "error",
+          "message": {
+            "text": "The function `run_calc` directly uses `eval()` on the untrusted input parameter `expr`, enabling arbitrary code execution and constituting a clear OS command injection vulnerability (CWE-78)."
+          },
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "name": "myapp.__init__.run_calc"
+                }
+              ],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "myapp/__init__.py"
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "foundry/v1": "demo-r1|myapp/__init__.py|myapp.__init__.run_calc|CWE-78"
+          },
+          "properties": {
+            "exploited": false,
+            "verdict": "true-positive",
+            "vulnClass": "CWE-78",
+            "citations": [
+              {
+                "path": "myapp/__init__.py",
+                "symbol": "myapp.__init__.run_calc"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
