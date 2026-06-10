@@ -48,7 +48,7 @@ start() {
     echo "  mistral key: UNSET (LLM calls will use mock)"
   fi
 
-  nohup foundry ui --config "$CONFIG" --port "$PORT" > "$LOG" 2>&1 &
+  nohup .venv/bin/foundry ui --config "$CONFIG" --port "$PORT" > "$LOG" 2>&1 &
   disown
   sleep 1
   pids="$(ui_pids)"
